@@ -15,6 +15,7 @@ SOURCES += \
 HEADERS  += \
   $$PWD/include/QxPoly2Tri \
   $$PWD/include/qxpoly2tri.h \
+  $$PWD/include/qxpoly2tri_global.h \
   $$PWD/src/poly2tri/poly2tri.h \
   $$PWD/src/poly2tri/common/utils.h \
   $$PWD/src/poly2tri/common/shapes.h \
