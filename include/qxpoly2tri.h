@@ -20,7 +20,6 @@ private:
   QVector<QPointF> m_points;
   QVector<int> m_indices;
   QVector<bool> m_constrainedIndex;
-  QVector<bool> m_delaunayIndex;
 };
 
 #endif // QXPOLY2TRI_H
