@@ -14,10 +14,13 @@ public:
 
   QVector<QPointF> points() const;
   QVector<int> indices() const;
+  bool isConstrained(int index) const;
 
 private:
   QVector<QPointF> m_points;
   QVector<int> m_indices;
+  QVector<bool> m_constrainedIndex;
+  QVector<bool> m_delaunayIndex;
 };
 
 #endif // QXPOLY2TRI_H

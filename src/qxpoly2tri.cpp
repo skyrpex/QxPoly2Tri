@@ -38,6 +38,7 @@ void QxPoly2Tri::triangulate(
 {
   m_points.clear();
   m_indices.clear();
+  m_constrainedIndex.clear();
 
   std::vector<p2t::Point *> p2tFullVector;
 
@@ -84,10 +85,23 @@ void QxPoly2Tri::triangulate(
       ++it)
   {
     p2t::Triangle *p2tTri = *it;
+    p2t::Point *p0 = p2tTri->GetPoint(0);
+    p2t::Point *p1 = p2tTri->GetPoint(1);
+    p2t::Point *p2 = p2tTri->GetPoint(2);
 
-    m_indices << indexOf(p2tFullVector, p2tTri->GetPoint(0));
-    m_indices << indexOf(p2tFullVector, p2tTri->GetPoint(1));
-    m_indices << indexOf(p2tFullVector, p2tTri->GetPoint(2));
+//    int edgeIndex0 = p2tTri->EdgeIndex(p0, p1);
+//    int edgeIndex1 = p2tTri->EdgeIndex(p1, p2);
+//    int edgeIndex2 = p2tTri->EdgeIndex(p2, p0);
+
+    int i0 = indexOf(p2tFullVector, p0);
+    int i1 = indexOf(p2tFullVector, p1);
+    int i2 = indexOf(p2tFullVector, p2);
+    m_indices << i0
+              << i1
+              << i2;
+    m_constrainedIndex << p2tTri->constrained_edge[2]
+                       << p2tTri->constrained_edge[0]
+                       << p2tTri->constrained_edge[1];
   }
 }
 
@@ -99,4 +113,9 @@ QVector<QPointF> QxPoly2Tri::points() const
 QVector<int> QxPoly2Tri::indices() const
 {
   return m_indices;
+}
+
+bool QxPoly2Tri::isConstrained(int index) const
+{
+  return m_constrainedIndex.at(index);
 }
