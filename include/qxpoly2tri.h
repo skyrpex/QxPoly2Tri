@@ -8,7 +8,7 @@
 class QXPOLY2TRI_EXPORT QxPoly2Tri
 {
 public:
-  void triangulate(const QPolygonF &boundary,
+  bool triangulate(const QPolygonF &boundary,
                    const QList<QPolygonF> &holes,
                    const QList<QPointF> &steinerPoints);
 

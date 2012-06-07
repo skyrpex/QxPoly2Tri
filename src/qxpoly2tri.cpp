@@ -1,5 +1,6 @@
 #include <QxPoly2Tri>
 #include "poly2tri/poly2tri.h"
+#include <QDebug>
 
 typedef std::vector<p2t::Triangle *> P2tTriangleVector;
 typedef std::vector<p2t::Point *> P2tPointVector;
@@ -31,7 +32,7 @@ void p2tAppend(const P2tPointVector &vector, P2tPointVector &appended)
   }
 }
 
-void QxPoly2Tri::triangulate(
+bool QxPoly2Tri::triangulate(
     const QPolygonF &boundary,
     const QList<QPolygonF> &holes,
     const QList<QPointF> &steinerPoints)
@@ -96,13 +97,21 @@ void QxPoly2Tri::triangulate(
     int i0 = indexOf(p2tFullVector, p0);
     int i1 = indexOf(p2tFullVector, p1);
     int i2 = indexOf(p2tFullVector, p2);
-    m_indices << i0
-              << i1
-              << i2;
-    m_constrainedIndex << p2tTri->constrained_edge[2]
-                       << p2tTri->constrained_edge[0]
-                       << p2tTri->constrained_edge[1];
+//    qDebug() << i0 << i1 << i2;
+//    Q_ASSERT(i0 >= 0 && i1 >= 0 && i2 >= 0);
+    if(i0 >= 0 && i1 >= 0 && i2 >= 0)
+    {
+      m_indices << i0
+                << i1
+                << i2;
+      m_constrainedIndex << p2tTri->constrained_edge[2]
+                         << p2tTri->constrained_edge[0]
+                         << p2tTri->constrained_edge[1];
+    }
+    else
+      return false;
   }
+  return true;
 }
 
 QVector<QPointF> QxPoly2Tri::points() const
