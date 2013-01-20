@@ -1,4 +1,4 @@
-﻿QT = core gui
+QT = core gui
 TARGET = QxPoly2Tri
 TEMPLATE = lib
 DESTDIR = $$PWD/bin
